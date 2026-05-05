@@ -6,7 +6,7 @@ export const siteUrl = configuredSiteUrl
       /\/$/,
       ""
     )
-  : "https://priyanshu-pratap-singh.dev";
+  : "https://priyanshupps.vercel.app";
 
 export const siteHost = new URL(siteUrl).hostname;
 
