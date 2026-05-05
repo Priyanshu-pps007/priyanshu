@@ -356,6 +356,20 @@ h3 {
   gap: 0.85rem;
 }
 
+.hero-support-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 1.2rem;
+  align-items: start;
+  padding-top: 1.15rem;
+}
+
+.hero-support-copy {
+  display: grid;
+  gap: 1.2rem;
+  min-width: 0;
+}
+
 .hero-summary-card {
   position: relative;
   overflow: hidden;
@@ -1010,6 +1024,7 @@ textarea {
 
 @media (max-width: 1024px) {
   .hero-grid,
+  .hero-support-band,
   .hero-summary-grid,
   .hero-strip,
   .expertise-layout,
@@ -1091,6 +1106,11 @@ textarea {
   .hero-title-support {
     min-height: 4.4em;
     max-width: 12ch;
+  }
+
+  .hero-support-band,
+  .hero-support-copy {
+    gap: 1rem;
   }
 
   .field-grid,

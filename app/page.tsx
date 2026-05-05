@@ -226,20 +226,6 @@ export default function Home() {
               I build production AI systems and scalable backend platforms that move from idea to
               reliable deployment fast.
             </p>
-            <div className="hero-summary-grid">
-              <article className="hero-summary-card" data-animate-child>
-                <h3>AI systems</h3>
-                <p>Multi-agent workflows, RAG pipelines, semantic memory, and MCP tooling.</p>
-              </article>
-              <article className="hero-summary-card" data-animate-child>
-                <h3>Backend delivery</h3>
-                <p>FastAPI, async APIs, streaming services, PostgreSQL, Redis, and Celery.</p>
-              </article>
-              <article className="hero-summary-card" data-animate-child>
-                <h3>Production mindset</h3>
-                <p>Built for reliability, speed, maintainability, and real product deployment.</p>
-              </article>
-            </div>
             <p className="hero-seo-copy" data-animate-child>
               {siteConfig.seoIntro}
             </p>
@@ -250,26 +236,6 @@ export default function Home() {
               <a className="ghost-button" href={`mailto:${siteConfig.email}`}>
                 {siteConfig.email}
               </a>
-            </div>
-            <p className="hero-note" data-animate-child>
-              Searching for Priyanshu Pratap Singh, AI engineer, software engineer, backend
-              engineer, FastAPI developer, or Python developer? This portfolio is built to make
-              that fit immediately clear.
-            </p>
-            <div className="metric-row">
-              {highlights.map((item) => (
-                <div key={item.label} className="metric-card" data-animate-child>
-                  <strong>{item.value}</strong>
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-            <div className="signal-row">
-              {hiringSignals.map((signal) => (
-                <span key={signal} className="signal-chip" data-animate-child>
-                  {signal}
-                </span>
-              ))}
             </div>
           </div>
 
@@ -293,6 +259,44 @@ export default function Home() {
             <article className="floating-card card-right" data-float-card>
               <span>Best fit</span>
               <strong>AI engineer, backend engineer, and Python developer roles</strong>
+            </article>
+          </div>
+        </div>
+        <div className="hero-support-band">
+          <div className="hero-support-copy">
+            <p className="hero-note" data-animate-child>
+              Searching for Priyanshu Pratap Singh, AI engineer, software engineer, backend
+              engineer, FastAPI developer, or Python developer? This portfolio is built to make
+              that fit immediately clear.
+            </p>
+            <div className="metric-row">
+              {highlights.map((item) => (
+                <div key={item.label} className="metric-card" data-animate-child>
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="signal-row">
+              {hiringSignals.map((signal) => (
+                <span key={signal} className="signal-chip" data-animate-child>
+                  {signal}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="hero-summary-grid">
+            <article className="hero-summary-card" data-animate-child>
+              <h3>AI systems</h3>
+              <p>Multi-agent workflows, RAG pipelines, semantic memory, and MCP tooling.</p>
+            </article>
+            <article className="hero-summary-card" data-animate-child>
+              <h3>Backend delivery</h3>
+              <p>FastAPI, async APIs, streaming services, PostgreSQL, Redis, and Celery.</p>
+            </article>
+            <article className="hero-summary-card" data-animate-child>
+              <h3>Production mindset</h3>
+              <p>Built for reliability, speed, maintainability, and real product deployment.</p>
             </article>
           </div>
         </div>
