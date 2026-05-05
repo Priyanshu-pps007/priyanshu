@@ -181,6 +181,7 @@ const faqSchema = {
 
 export default function Home() {
   return (
+    <meta name="google-site-verification" content="ARxEn7y4V82qCdBhNgfWcUUIxPDuKoE0_qqeoOLURAo" />
     <main className="portfolio-shell">
       <ScrollAnimations />
       <script
