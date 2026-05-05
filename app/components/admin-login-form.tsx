@@ -28,10 +28,15 @@ export function AdminLoginForm({ action }: Props) {
         body: JSON.stringify({ email, password }),
       });
 
-      const payload = (await response.json()) as { message?: string };
+      const contentType = response.headers.get("content-type") || "";
+      const isJson = contentType.includes("application/json");
+      const payload = isJson ? ((await response.json()) as { message?: string }) : null;
 
       if (!response.ok) {
-        throw new Error(payload.message || "Login failed.");
+        throw new Error(
+          payload?.message ||
+            `Login failed${response.status ? ` (${response.status})` : ""}.`
+        );
       }
 
       window.location.reload();

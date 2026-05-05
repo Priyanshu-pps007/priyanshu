@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { authenticateAdmin, createLoginSession } from "@/lib/auth";
+import { BackendRequestError } from "@/lib/backend";
 
 export async function POST(request: Request) {
   const body = (await request.json()) as {
@@ -24,9 +25,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: "Authenticated" });
   } catch (error) {
+    const status = error instanceof BackendRequestError ? error.status : 500;
+
     return NextResponse.json(
       { message: error instanceof Error ? error.message : "Invalid admin credentials." },
-      { status: 401 }
+      { status }
     );
   }
 }

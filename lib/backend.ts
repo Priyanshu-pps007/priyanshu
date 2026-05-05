@@ -2,6 +2,16 @@ const backendUrl = process.env.PORTFOLIO_BACKEND_API_URL?.trim() || "https://bac
 
 export const backendApiUrl = backendUrl.replace(/\/$/, "");
 
+export class BackendRequestError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "BackendRequestError";
+    this.status = status;
+  }
+}
+
 type BackendRequestOptions = {
   method?: "GET" | "POST";
   body?: unknown;
@@ -18,11 +28,19 @@ export async function backendRequest<T>(path: string, options: BackendRequestOpt
     body: options.body ? JSON.stringify(options.body) : undefined,
   });
 
-  const payload = (await response.json()) as T & { detail?: string; message?: string };
+  const contentType = response.headers.get("content-type") || "";
+  const isJson = contentType.includes("application/json");
+  const payload = isJson
+    ? ((await response.json()) as T & { detail?: string; message?: string })
+    : null;
 
   if (!response.ok) {
-    throw new Error(payload.detail || payload.message || "Backend request failed.");
+    const fallbackMessage = isJson
+      ? payload?.detail || payload?.message || "Backend request failed."
+      : `Backend request failed with status ${response.status}.`;
+
+    throw new BackendRequestError(fallbackMessage, response.status);
   }
 
-  return payload;
+  return payload as T;
 }
