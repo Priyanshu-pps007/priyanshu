@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const ipAddress = forwardedFor?.split(",")[0]?.trim() || headerStore.get("x-real-ip") || "";
   const userAgent = headerStore.get("user-agent") || "";
 
-  saveContactSubmission({
+  await saveContactSubmission({
     name,
     email,
     company,

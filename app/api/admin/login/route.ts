@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { createLoginSession, validateAdminCredentials } from "@/lib/auth";
+import { authenticateAdmin, createLoginSession } from "@/lib/auth";
 
 export async function POST(request: Request) {
   const body = (await request.json()) as {
@@ -18,13 +18,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const user = validateAdminCredentials(email, password);
+  try {
+    const session = await authenticateAdmin(email, password);
+    await createLoginSession(session.session_token, session.expires_at);
 
-  if (!user) {
-    return NextResponse.json({ message: "Invalid admin credentials." }, { status: 401 });
+    return NextResponse.json({ message: "Authenticated" });
+  } catch (error) {
+    return NextResponse.json(
+      { message: error instanceof Error ? error.message : "Invalid admin credentials." },
+      { status: 401 }
+    );
   }
-
-  await createLoginSession(user.id);
-
-  return NextResponse.json({ message: "Authenticated" });
 }

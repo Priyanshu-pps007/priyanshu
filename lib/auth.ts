@@ -1,46 +1,10 @@
-import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 
-import {
-  createAdminSession,
-  deleteExpiredSessions,
-  deleteSession,
-  findAdminUserByEmail,
-  findSession,
-} from "@/lib/db";
+import { backendRequest } from "@/lib/backend";
 
 const SESSION_COOKIE = "portfolio_admin_session";
-const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
-function hashPassword(password: string, salt: string) {
-  return scryptSync(password, salt, 64);
-}
-
-export function validateAdminCredentials(email: string, password: string) {
-  const user = findAdminUserByEmail(email);
-
-  if (!user) {
-    return null;
-  }
-
-  const incoming = hashPassword(password, user.password_salt);
-  const saved = Buffer.from(user.password_hash, "hex");
-
-  if (incoming.length !== saved.length || !timingSafeEqual(incoming, saved)) {
-    return null;
-  }
-
-  return user;
-}
-
-export async function createLoginSession(userId: number) {
-  deleteExpiredSessions();
-
-  const sessionToken = randomBytes(32).toString("hex");
-  const expiresAt = new Date(Date.now() + SESSION_DURATION_MS).toISOString();
-
-  createAdminSession(userId, sessionToken, expiresAt);
-
+export async function createLoginSession(sessionToken: string, expiresAt: string) {
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE, sessionToken, {
     httpOnly: true,
@@ -51,12 +15,35 @@ export async function createLoginSession(userId: number) {
   });
 }
 
+export async function authenticateAdmin(email: string, password: string) {
+  return backendRequest<{
+    session_token: string;
+    expires_at: string;
+    admin: { id: number; email: string };
+  }>("/api/admin/login", {
+    method: "POST",
+    body: {
+      email,
+      password,
+    },
+  });
+}
+
 export async function clearLoginSession() {
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get(SESSION_COOKIE)?.value;
 
   if (sessionToken) {
-    deleteSession(sessionToken);
+    try {
+      await backendRequest<{ message: string }>("/api/admin/logout", {
+        method: "POST",
+        body: {
+          session_token: sessionToken,
+        },
+      });
+    } catch {
+      // The cookie should still be cleared locally even if the backend is unavailable.
+    }
   }
 
   cookieStore.set(SESSION_COOKIE, "", {
@@ -69,8 +56,6 @@ export async function clearLoginSession() {
 }
 
 export async function getAuthenticatedAdmin() {
-  deleteExpiredSessions();
-
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get(SESSION_COOKIE)?.value;
 
@@ -78,19 +63,19 @@ export async function getAuthenticatedAdmin() {
     return null;
   }
 
-  const session = findSession(sessionToken);
-
-  if (!session) {
+  try {
+    return await backendRequest<{ id: number; email: string }>("/api/admin/session", {
+      method: "POST",
+      body: {
+        session_token: sessionToken,
+      },
+    });
+  } catch {
     return null;
   }
+}
 
-  if (new Date(session.expires_at).getTime() <= Date.now()) {
-    deleteSession(sessionToken);
-    return null;
-  }
-
-  return {
-    id: session.user_id,
-    email: session.email,
-  };
+export async function getSessionToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get(SESSION_COOKIE)?.value || null;
 }

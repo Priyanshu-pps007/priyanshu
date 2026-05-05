@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { AdminLoginForm } from "@/app/components/admin-login-form";
-import { clearLoginSession, getAuthenticatedAdmin } from "@/lib/auth";
+import { clearLoginSession, getAuthenticatedAdmin, getSessionToken } from "@/lib/auth";
 import { getContactSubmissions } from "@/lib/db";
 
 export const metadata: Metadata = {
@@ -38,7 +38,8 @@ export default async function AdminPage() {
     );
   }
 
-  const submissions = getContactSubmissions();
+  const sessionToken = await getSessionToken();
+  const submissions = sessionToken ? await getContactSubmissions(sessionToken) : [];
 
   return (
     <main className="admin-shell">
