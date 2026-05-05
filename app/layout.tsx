@@ -88,6 +88,9 @@ export default function RootLayout({
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
     >
+      <head>
+      <meta name="google-site-verification" content="ARxEn7y4V82qCdBhNgfWcUUIxPDuKoE0_qqeoOLURAo" />
+        </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
