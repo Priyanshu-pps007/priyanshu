@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #08111f;
+  --background: #000000;
   --foreground: #f5f7fb;
   --muted: #9cabbd;
   --card: rgba(10, 15, 28, 0.68);
   --card-strong: rgba(12, 18, 32, 0.92);
   --line: rgba(255, 255, 255, 0.1);
   --accent: #c7f284;
-  --accent-strong: #91f2ff;
+  --accent-strong: #b5f3fb;
   --shadow: 0 30px 80px rgba(1, 6, 19, 0.55);
 }
 
@@ -32,9 +32,9 @@ body {
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
   background-image:
-    radial-gradient(circle at top left, rgba(145, 242, 255, 0.12), transparent 28%),
-    radial-gradient(circle at top right, rgba(199, 242, 132, 0.12), transparent 25%),
-    linear-gradient(180deg, #0a101b 0%, #08111f 50%, #060b16 100%);
+    radial-gradient(circle at top left, rgba(145, 242, 255, 0.06), transparent 28%),
+    radial-gradient(circle at top right, rgba(199, 242, 132, 0.06), transparent 25%),
+    linear-gradient(180deg, #050913 0%, #02050c 52%, #000000 100%);
   background-attachment: fixed;
 }
 
