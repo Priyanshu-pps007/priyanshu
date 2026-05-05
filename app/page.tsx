@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { ContactForm } from "@/app/components/contact-form";
+import { HeroRoleTypewriter } from "@/app/components/hero-role-typewriter";
 import { ScrollAnimations } from "@/app/components/scroll-animations";
 import {
   education,
@@ -219,7 +220,7 @@ export default function Home() {
             </nav>
             <h1 data-animate-child>{siteConfig.name}</h1>
             <h2 className="hero-title-support" data-animate-child>
-              {siteConfig.expertiseTitle}
+              <HeroRoleTypewriter />
             </h2>
             <p className="hero-lead" data-animate-child>
               I build production AI systems and scalable backend platforms that move from idea to

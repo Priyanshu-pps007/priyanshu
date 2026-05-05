@@ -304,10 +304,36 @@ h3 {
 }
 
 .hero-title-support {
-  max-width: 14ch;
+  max-width: 18ch;
   color: #dfe8f2;
-  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
-  line-height: 1.08;
+  min-height: 3.2em;
+  font-size: clamp(1.28rem, 2.4vw, 1.95rem);
+  line-height: 1.12;
+}
+
+.hero-typewriter,
+.hero-typewriter-static {
+  display: inline;
+  color: #dfe8f2;
+}
+
+.hero-typewriter-prefix,
+.hero-typewriter-suffix {
+  color: #dfe8f2;
+}
+
+.hero-typewriter-word {
+  color: var(--accent-strong);
+}
+
+.hero-typewriter-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.95em;
+  margin-left: 0.12em;
+  vertical-align: -0.08em;
+  background: var(--accent);
+  animation: blink-caret 900ms steps(1) infinite;
 }
 
 .hero-seo-copy {
@@ -971,6 +997,17 @@ textarea {
   }
 }
 
+@keyframes blink-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-grid,
   .hero-summary-grid,
@@ -1049,6 +1086,11 @@ textarea {
 
   .hero-status-row {
     gap: 0.55rem;
+  }
+
+  .hero-title-support {
+    min-height: 4.4em;
+    max-width: 12ch;
   }
 
   .field-grid,
@@ -1162,7 +1204,8 @@ textarea {
   .portfolio-shell::after,
   .portrait-orbit,
   .floating-card,
-  .form-toast {
+  .form-toast,
+  .hero-typewriter-caret {
     animation: none !important;
   }
 
