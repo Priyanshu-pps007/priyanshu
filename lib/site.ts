@@ -215,7 +215,6 @@ export const skills = {
 
 export const education = {
   degree: "Bachelor of Technology in Computer Science and Engineering",
-  institution: "Institute of Engineering and Rural Technology",
   period: "2020 - 2024",
   detail: "CGPA: 7.6",
 };
