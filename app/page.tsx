@@ -465,7 +465,6 @@ export default function Home() {
           <article className="glass-panel education-card" data-animate-child>
             <h3>Education</h3>
             <p>{education.degree}</p>
-            <p>{education.institution}</p>
             <p>
               {education.period} • {education.detail}
             </p>
