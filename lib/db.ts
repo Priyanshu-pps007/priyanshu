@@ -2,7 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const dataDirectory = path.join(process.cwd(), "data");
+const dataDirectory = path.join(process.cwd(), "tmp");
 const databasePath = path.join(dataDirectory, "portfolio.sqlite");
 
 let database: DatabaseSync | null = null;
