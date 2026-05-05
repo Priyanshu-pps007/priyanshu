@@ -71,10 +71,6 @@ const personSchema = {
     "@type": "Occupation",
     name: role,
   })),
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: education.institution,
-  },
   sameAs: [siteUrl],
 };
 
